@@ -102,6 +102,7 @@ N'oubliez pas d'exposer le port d’écoute de votre serveur web " ``php:apache`
 -	Faites le build de votre image 
 
 Nom de l’image : web-student_list 
+
 tag: 1.0
 
 -	Réseau
