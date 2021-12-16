@@ -32,28 +32,44 @@ Ci-dessous des informations capitales nécessaires pour construire le conteneur 
 
 Pour créer une image API, vous devez utiliser "python:2.7-stretch"
 -	Mainteneur
+
 N'oubliez pas de préciser les informations du responsable. C’est une bonne pratique. 
 -	Ajouter le code source
+
 Vous devez copier le code source de l'API dans le conteneur dans le chemin racine "/" 
 -	Prérequis
+
 L'API utilise le moteur Flask, voici une liste du package que vous devez installer
+
 ````apt-get update -y && apt-get install python-dev python3-dev libsasl2-dev python-dev libldap2-dev libssl-dev -y````
-pip install flask flask_httpauth flask_simpleldap python-dotenv
+
+````pip install flask flask_httpauth flask_simpleldap python-dotenv````
+
 -	Données persistantes (volume)
+
 Créez un dossier de données à la racine "`/data`" où les données seront stockées et déclarez-le en tant que volume
 Vous utiliserez ce dossier pour monter la liste des étudiants
 -	Port API
+
 Pour interagir avec cette API, exposez le port 5000
 -	CMD
+
 Lorsque le conteneur démarre, il doit exécuter student_age.py (copié à l'étape 4), il devrait donc ressembler à quelque chose comme
 `CMD [ "python", "./student_age.py" ]`
+
 -	Faites le build de votre image 
+
 Nom de l’image : api 
 tag: 1.0
+
 -	Réseau
+
 Créez un réseau de type bridge appelé ``my-network``. C’est ce réseau qui sera utilisé afin de faire communiquer l’api et le web de l’application.  
+
 -	Faites le run de votre image 
+
 Vérifiez que le conteneur est à l’écoute et est prêt à répondre. Lors du run de votre image, pensez bien à préciser le réseau dans lequel votre api sera déployée.  Exécutez cette commande pour vous assurer que l'API répond correctement (prenez une capture d'écran à des fins de livraison)
+
 ``curl -u toto:python -X GET http://<host IP>:<API exposed port>/pozos/api/v1.0/get_student_ages``
 
 Félicitations ! Vous venez de déployer l’API (le back-end de l’application). Vous êtes maintenant prêt pour l'étape suivante qui est de déployer le web (le front-end de l’application)
@@ -61,26 +77,42 @@ Félicitations ! Vous venez de déployer l’API (le back-end de l’application
 
 ## 1.3	Construire et tester la page web
 Après avoir testé votre image API, vous devez déployer le site web dans le même réseau créer précédemment ``my-network``. 
+
 Ci-dessous des informations nécessaires pour construire le conteneur de la page web.
+
 -	Image de base
+
 Pour créer une image web, vous devez utiliser l’image " ``php:apache`` "
+
 -	Mainteneur
+
 N'oubliez pas de préciser les informations du responsable. C’est une bonne pratique. 
+
 -	Variable d’environnement
+
 Afin de permettre au conteneur web de se connecter à la base de données avec les identifiants corrects vous fournirez en variable d’environnement les informations ``USERNAME`` et ``PASSWORD``. 
+
 -	Volume 
+
 Afin d’éviter que l'image ``php:apache`` ne soit exécutée avec le site Web par défaut, le fichiers du site web doivent être déposés dans le répertoire ``/var/www/html``.
 -	Port web
+
 N'oubliez pas d'exposer le port d’écoute de votre serveur web " ``php:apache`` "
+
 -	Faites le build de votre image 
+
 Nom de l’image : web-student_list 
 tag: 1.0
+
 -	Réseau
+
 N’oubliez pas de place le web dans le même réseau que l’API. Il s’agit en effet du réseau de type bridge appelé ``my-network`` crée précédemment. 
+
 -	Faites le run de votre image 
+
 Vérifiez que le conteneur est à l’écoute et est prêt à répondre. Lors du run de votre image, pensez bien à préciser le réseau dans lequel votre api sera déployée et aussi à mapper les ports.  
 
-Enfin, accédez à votre site Web et cliquez sur le bouton  "List Student"
-Si la liste des élèves apparaît, vous avez réalisé avec succès l'application POZOS ! Félicitations (faites une capture d'écran)
+***Enfin, accédez à votre site Web et cliquez sur le bouton  "List Student"
+Si la liste des élèves apparaît, vous avez réalisé avec succès l'application POZOS ! Félicitations (faites une capture d'écran)***
 
 
