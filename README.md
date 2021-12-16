@@ -29,6 +29,7 @@ Il est maintenant temps de vous expliquer le rôle de chaque fichier :
 ## 1.2	Construire et tester l’API
 Ci-dessous des informations capitales nécessaires pour construire le conteneur API
 -	Image de base
+
 Pour créer une image API, vous devez utiliser "python:2.7-stretch"
 -	Mainteneur
 N'oubliez pas de préciser les informations du responsable. C’est une bonne pratique. 
@@ -53,7 +54,7 @@ tag: 1.0
 Créez un réseau de type bridge appelé ``my-network``. C’est ce réseau qui sera utilisé afin de faire communiquer l’api et le web de l’application.  
 -	Faites le run de votre image 
 Vérifiez que le conteneur est à l’écoute et est prêt à répondre. Lors du run de votre image, pensez bien à préciser le réseau dans lequel votre api sera déployée.  Exécutez cette commande pour vous assurer que l'API répond correctement (prenez une capture d'écran à des fins de livraison)
-`curl -u toto:python -X GET http://<host IP>:<API exposed port>/pozos/api/v1.0/get_student_ages`
+``curl -u toto:python -X GET http://<host IP>:<API exposed port>/pozos/api/v1.0/get_student_ages``
 
 Félicitations ! Vous venez de déployer l’API (le back-end de l’application). Vous êtes maintenant prêt pour l'étape suivante qui est de déployer le web (le front-end de l’application)
 
